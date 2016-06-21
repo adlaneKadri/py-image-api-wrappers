@@ -18,7 +18,7 @@ There are two possible usages for the library. Either from the command-line or a
 All wrappers have one common function to run to get the image content tags: get_tag_score_list_and_time("<file path to image>")
 
 ### Clarifai API
-[Clarifai website](https://www.clarifai.com/)
+[Clarifai website](https://www.clarifai.com/)  
 Command line use: 
 ```
 python clarifai_api <file path to image> <Clarifai app id> <Clarifai app secret>
@@ -34,7 +34,7 @@ clarifai_wrapper.get_tag_score_list_and_time("<file path to image>")
 ```
 
 ### Imagga API
-[Imagga website](http://imagga.com/)
+[Imagga website](http://imagga.com/)  
 Command line use: 
 ```
 python imagga_api <file path to image> <Imagga API key> <Imagga API Secret>
@@ -50,7 +50,7 @@ imagga_wrapper.get_tag_score_list_and_time("<file path to image>")
 ```
 
 ### Alchemy API
-[Alchemy website](http://www.alchemyapi.com/)
+[Alchemy website](http://www.alchemyapi.com/)  
 Command line use: 
 ```
 python alchemy_api <file path to image> <Alchemy API key>
@@ -66,7 +66,7 @@ alchemy_wrapper.get_tag_score_list_and_time("<file path to image>")
 ```
 
 ### Google Vision API
-[Google Vision API website](https://cloud.google.com/vision/)
+[Google Vision API website](https://cloud.google.com/vision/)  
 Command line use: 
 ```
 python googlevision_api <file path to image> <Google Vision API key>
@@ -82,7 +82,8 @@ googlevision_wrapper.get_tag_score_list_and_time("<file path to image>")
 ```
 
 ### Projectoxford API
-[Projectoxford API website](https://www.microsoft.com/cognitive-services/en-us/computer-vision-api)
+[Projectoxford API website](https://www.microsoft.com/cognitive-services/en-us/computer-vision-api)  
+Command line use: 
 ```
 python projectoxford_api <file path to image> <Projectoxford API key>
 ```
@@ -145,4 +146,4 @@ Output is a dictionary mapping "tag_list" to all tags and confidences and mappin
 ```
 
 ## License
-Write here the license
+MIT
