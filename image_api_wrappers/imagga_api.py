@@ -1,5 +1,8 @@
 import datetime, json, requests, sys, os.path, pprint
 
+IMAGGA_CONTENT_URL = "https://api.imagga.com/v1/content"
+IMAGGA_TAG_URL = "https://api.imagga.com/v1/tagging"
+
 class ImaggaApi:
 
     def __init__(self, api_key, api_secret):
@@ -8,9 +11,8 @@ class ImaggaApi:
 
     def get_tagging_response_and_time(self, image_file_path):
         try:
-            content_url = "https://api.imagga.com/v1/content"
             post_data = {"image": open(image_file_path, 'rb')}
-            response = requests.post(content_url, files=post_data, auth=(
+            response = requests.post(IMAGGA_CONTENT_URL, files=post_data, auth=(
             self.api_key, self.api_secret))
             if response.status_code == 200:
                 response_json = json.loads(response.text)
@@ -19,16 +21,14 @@ class ImaggaApi:
                     return
                 else:
                     image_id = response_json['uploaded'][0]['id']
-                    tag_url = "https://api.imagga.com/v1/tagging"
                     post_data = {"content": image_id}
                     start_time = datetime.datetime.now()
-                    response = requests.get(tag_url, data=post_data, auth=(
+                    response = requests.get(IMAGGA_TAG_URL, data=post_data, auth=(
                     self.api_key, self.api_secret))
                     end_time = datetime.datetime.now()
                     return {"response": response, "time": (end_time-start_time).microseconds}
-            elif response.status_code != 200:
-                print("Something went wrong! \n" + "Error Message: \n" + response.text)
-                return
+            print("Something went wrong! \n" + "Error Message: \n" + response.text)
+            return
         except (FileNotFoundError, requests.exceptions.RequestException) as e:
             print("Something went wrong! \n" + "Error Message: \n" +  str(e))
             return
@@ -48,8 +48,7 @@ class ImaggaApi:
                 json_response = json.loads(response_and_time['response'].text)
                 tag_list_with_score = self.get_tag_score_list(json_response)
                 return {"tag_list": tag_list_with_score, "time" : response_and_time["time"], "status": "ok"}
-            elif status_code != 200:
-                return {"status": "error", "message": json.loads(response_and_time["response"].text)}
+            return {"status": "error", "message": json.loads(response_and_time["response"].text)}
 
 if __name__ == '__main__':
     if len(sys.argv) < 4:
