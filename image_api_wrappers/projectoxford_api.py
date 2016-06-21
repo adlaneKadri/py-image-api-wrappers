@@ -1,5 +1,8 @@
 import datetime, json, requests, sys, os.path, pprint
 
+PROJECTOXFORD_TAG_URL = "https://api.projectoxford.ai/vision/v1.0/tag"
+
+
 class ProjectoxfordApi:
 
     def __init__(self, api_key):
@@ -7,11 +10,10 @@ class ProjectoxfordApi:
 
     def get_tagging_response_and_time(self, image_file_path):
         try:
-            tag_url = "https://api.projectoxford.ai/vision/v1.0/tag"
             data = open(image_file_path, 'rb')
             headers = {'Content-Type': 'application/octet-stream', 'Ocp-Apim-Subscription-Key': self.api_key}
             start_time = datetime.datetime.now()
-            response = requests.post(tag_url, data=data, headers=headers)
+            response = requests.post(PROJECTOXFORD_TAG_URL, data=data, headers=headers)
             end_time = datetime.datetime.now()
             return {"response": response, "time": (end_time-start_time).microseconds}
         except (requests.exceptions.RequestException, FileNotFoundError) as e:
@@ -33,8 +35,7 @@ class ProjectoxfordApi:
                 json_response = json.loads(response_and_time['response'].text)
                 tag_list_with_score = self.get_tag_score_list(json_response)
                 return {"tag_list": tag_list_with_score, "time" : response_and_time["time"], "status":"ok"}
-            elif status_code != 200:
-                return {"message": json.loads(response_and_time["response"].text), "status":"error"}
+            return {"message": json.loads(response_and_time["response"].text), "status":"error"}
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
