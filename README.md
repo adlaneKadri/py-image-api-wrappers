@@ -15,7 +15,7 @@ python setup.py install
 ## Usage
 
 There are two possible usages for the library. Either from the command-line or as an imported module in python. 
-All wrappers have one common function to run to get the image content tags: get_tag_score_list_and_time("<file path to image>")
+All wrappers have one common function to run to get the image content tags: get_tag_scores_and_time("<file path to image>")
 
 ### Clarifai API
 [Clarifai website](https://www.clarifai.com/)  
@@ -30,7 +30,7 @@ from image_api_wrappers import clarifai_api
 
 clarifai_wrapper = clarifai_api.ClarifaiApi("<Clarifai app id>", "<Clarifai app secret>")
 
-clarifai_wrapper.get_tag_score_list_and_time("<file path to image>")
+clarifai_wrapper.get_tag_scores_and_time("<file path to image>")
 ```
 
 ### Imagga API
@@ -46,7 +46,7 @@ from image_api_wrappers import imagga_api
 
 imagga_wrapper = imagga_api.ImaggaApi("<Imagga API key>", "<Imagga API Secret>")
 
-imagga_wrapper.get_tag_score_list_and_time("<file path to image>")
+imagga_wrapper.get_tag_scores_and_time("<file path to image>")
 ```
 
 ### Alchemy API
@@ -62,7 +62,7 @@ from image_api_wrappers import alchemy_api
 
 alchemy_wrapper = imagga_api.AlchemyApi("<Alchemy API key>")
 
-alchemy_wrapper.get_tag_score_list_and_time("<file path to image>")
+alchemy_wrapper.get_tag_scores_and_time("<file path to image>")
 ```
 
 ### Google Vision API
@@ -78,7 +78,7 @@ from image_api_wrappers import googlevision_api
 
 googlevision_wrapper = googlevision_api.GoogleVisionApi("<Google Vision API key>")
 
-googlevision_wrapper.get_tag_score_list_and_time("<file path to image>")
+googlevision_wrapper.get_tag_scores_and_time("<file path to image>")
 ```
 
 ### Projectoxford API
@@ -94,7 +94,7 @@ from image_api_wrappers import projectoxford_api
 
 projectoxford_wrapper = projectoxford_api.ProjectoxfordApi("<Projectoxford API key>")
 
-projectoxford_wrapper.get_tag_score_list_and_time("<file path to image>")
+projectoxford_wrapper.get_tag_scores_and_time("<file path to image>")
 ```
 
 ### Return values 
@@ -108,11 +108,11 @@ projectoxford_wrapper.get_tag_score_list_and_time("<file path to image>")
 #### Error Response
 {
     "status": "error", 
-    "message": "< The returned message from the API >".
+    "response": "< The returned message from the API >".
 }
 
 #### Internal Error
-If an internal error occurs the error will be printed and the function get_tag_score_list_and_time("< file path to image >") will return None. 
+If an internal error occurs the error will be printed and the function get_tag_scores_and_time("< file path to image >") will return None. 
 
 ## Example Usage
 The example image used is from the PASCAL-VOC 2007 test data set. 
@@ -120,7 +120,7 @@ Example usage when running in command line:
 ```
 python clarifai_api.py ../img/cats.jpg <Clarifai app id> <Clarifai app secret>
 ```
-Output is a dictionary mapping "tag_list" to all tags and confidences and mappin "time" to the response ime in micro seconds.  
+Output is a dictionary mapping "tag_list" to all tags and confidences and mapping "time" to the response time in micro seconds.  
 ```
 {'tag_list': [('mammal', 0.9875457286834717),
               ('cat', 0.9859105944633484),
